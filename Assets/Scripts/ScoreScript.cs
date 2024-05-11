@@ -14,6 +14,11 @@ public class ScoreScript : MonoBehaviour
         scoreText = GetComponent<TextMeshProUGUI>();
     }
 
+    public static int GetScore()
+    {
+        return score;
+    }
+
     public static void AddScore(int amount)
     {
         score += amount;

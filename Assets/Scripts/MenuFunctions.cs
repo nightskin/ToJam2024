@@ -5,7 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class MenuFunctions : MonoBehaviour
 {
-
+    public void HighScores()
+    {
+        SceneManager.LoadScene("Scores");
+    }
+    
     public void MainMenu()
     {
         SceneManager.LoadScene("Menu");

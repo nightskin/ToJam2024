@@ -66,17 +66,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        Steer();
-        Move();
-
-        if(actions.Shoot.IsPressed())
-        {
-            shootTimer -= Time.deltaTime;
-            if(shootTimer < 0)
-            {
-                Shoot();
-            }
-        }
         if(GetComponent<HealthScript>().IsDead())
         {
             Cursor.lockState = CursorLockMode.None;
@@ -84,6 +73,20 @@ public class PlayerMovement : MonoBehaviour
             controller.enabled = false;
             hud.SetActive(false);
             gameOverMenu.SetActive(true);
+            HighScores.SetHighScores(ScoreScript.GetScore());
+        }
+        else
+        {
+            Steer();
+            Move();
+            if (actions.Shoot.IsPressed())
+            {
+                shootTimer -= Time.deltaTime;
+                if (shootTimer < 0)
+                {
+                    Shoot();
+                }
+            }
         }
     }
 
