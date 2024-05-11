@@ -62,7 +62,7 @@ Material:
     - _NormalStrength: 1
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Tiling: 1
+    - _Tiling: 0.1
     m_Colors: []
   m_BuildTextureStacks: []
 --- !u!114 &5998178934505536820

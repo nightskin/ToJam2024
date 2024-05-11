@@ -48,8 +48,6 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-
-
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -174,27 +172,20 @@ public class PlayerMovement : MonoBehaviour
 
     void Steer()
     {
-        if (!GetComponent<HealthScript>().IsDead())
-        {
-            float x = actions.Look.ReadValue<Vector2>().x;
-            float y = actions.Look.ReadValue<Vector2>().y;
-            //MouseLook
-            xRot += y * lookSpeed * Time.deltaTime;
-            xRot = Mathf.Clamp(xRot, -90, 90);
-            yRot += x * lookSpeed * Time.deltaTime;
-            zRot = Mathf.Lerp(zRot, -x * 45, 10 * Time.deltaTime);
-            camera.transform.localRotation = Quaternion.Euler(xRot, yRot, 0);
-            transform.rotation = camera.transform.localRotation;
-        }
-
+        float x = actions.Look.ReadValue<Vector2>().x;
+        float y = actions.Look.ReadValue<Vector2>().y;
+        //MouseLook
+        xRot += y * lookSpeed * Time.deltaTime;
+        xRot = Mathf.Clamp(xRot, -90, 90);
+        yRot += x * lookSpeed * Time.deltaTime;
+        zRot = Mathf.Lerp(zRot, -x * 45, 10 * Time.deltaTime);
+        camera.transform.localRotation = Quaternion.Euler(xRot, yRot, 0);
+        transform.rotation = Quaternion.Euler(xRot, yRot, zRot);
     }
 
     void Move()
     {
-        if(!GetComponent<HealthScript>().IsDead())
-        {
-            controller.Move(camera.transform.forward * speed * Time.deltaTime);
-        }
+        controller.Move(camera.transform.forward * speed * Time.deltaTime);
     }
 
 }
