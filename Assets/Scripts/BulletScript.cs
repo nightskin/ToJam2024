@@ -34,11 +34,26 @@ public class BulletScript : MonoBehaviour
                 }
                 else if(hit.transform.tag == "Player")
                 {
-
+                    HealthScript health = hit.transform.GetComponent<HealthScript>();
+                    if(health)
+                    {
+                        health.TakeDamage(damage);
+                    }
                 }
-                else if(hit.transform.tag == "Enemy")
+                else if(hit.transform.tag == "Enemy" && owner.tag != "Enemy")
                 {
-
+                    ScoreScript.AddScore(10);
+                    HealthScript health = hit.transform.GetComponent<HealthScript>();
+                    if (health) 
+                    { 
+                        health.TakeDamage(damage);
+                        if(health.IsDead())
+                        {
+                            Destroy(hit.transform.gameObject);
+                            ScoreScript.AddScore(30);
+                            SolarSystem.enemies.Remove(hit.transform.gameObject);
+                        }
+                    }
                 }
                 Destroy(gameObject);
             }

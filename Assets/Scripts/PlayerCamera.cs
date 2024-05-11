@@ -16,17 +16,19 @@ public class PlayerCamera : MonoBehaviour
     
     void Update()
     {
-        Vector3 pos = target.position - transform.forward * camDistance;
-
-        if(camDistance == 0)
+        if(!target.GetComponent<HealthScript>().IsDead())
         {
-            transform.position = pos + offset;
-        }
-        else 
-        {
-            transform.position = Vector3.Lerp(transform.position, pos + offset, 10 * Time.deltaTime);
-        }
+            Vector3 pos = target.position - transform.forward * camDistance;
 
+            if (camDistance == 0)
+            {
+                transform.position = pos + offset;
+            }
+            else
+            {
+                transform.position = Vector3.Lerp(transform.position, pos + offset, 10 * Time.deltaTime);
+            }
 
+        }
     }
 }

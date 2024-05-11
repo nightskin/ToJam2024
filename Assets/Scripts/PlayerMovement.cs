@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
     Controls controls;
     Controls.PlayerActions actions;
+    [SerializeField] GameObject hud;
+    [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject gameOverMenu;
 
     [SerializeField] Transform mesh;
     [SerializeField] Transform bulletSpawn;
@@ -37,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
         actions.Run.performed += Run_performed;
         actions.Run.canceled += Run_canceled;
         actions.Zoom.performed += Zoom_performed;
+        actions.Pause.performed += Pause_performed;
         
         speed = walkSpeed;
         if(!controller) controller = GetComponent<CharacterController>();
@@ -48,6 +53,15 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    private void OnDestroy()
+    {
+        actions.Shoot.performed -= Shoot_performed;
+        actions.Run.performed -= Run_performed;
+        actions.Run.canceled -= Run_canceled;
+        actions.Zoom.performed -= Zoom_performed;
+        actions.Pause.performed -= Pause_performed;
     }
 
     void Update()
@@ -63,7 +77,35 @@ public class PlayerMovement : MonoBehaviour
                 Shoot();
             }
         }
+        if(GetComponent<HealthScript>().IsDead())
+        {
+            Cursor.lockState = CursorLockMode.None;
+            mesh.gameObject.SetActive(false);
+            controller.enabled = false;
+            hud.SetActive(false);
+            gameOverMenu.SetActive(true);
+        }
+    }
 
+    private void Pause_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        if (!GetComponent<HealthScript>().IsDead())
+        {
+            if (Time.timeScale == 0)
+            {
+                Time.timeScale = 1;
+                Cursor.lockState = CursorLockMode.Locked;
+                hud.SetActive(true);
+                pauseMenu.SetActive(false);
+            }
+            else
+            {
+                Time.timeScale = 0;
+                Cursor.lockState = CursorLockMode.None;
+                hud.SetActive(false);
+                pauseMenu.SetActive(true);
+            }
+        }
     }
 
     private void Zoom_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
@@ -129,27 +171,27 @@ public class PlayerMovement : MonoBehaviour
 
     void Steer()
     {
-        float x = actions.Look.ReadValue<Vector2>().x;
-        float y = actions.Look.ReadValue<Vector2>().y;
-        //MouseLook
-        xRot += y * lookSpeed * Time.deltaTime;
-        xRot = Mathf.Clamp(xRot, -90, 90);
-        yRot += x * lookSpeed * Time.deltaTime;
-        zRot = Mathf.Lerp(zRot, -x * 45, 10 * Time.deltaTime);
-        camera.transform.localRotation = Quaternion.Euler(xRot, yRot, 0);
-        transform.rotation = camera.transform.localRotation;
+        if (!GetComponent<HealthScript>().IsDead())
+        {
+            float x = actions.Look.ReadValue<Vector2>().x;
+            float y = actions.Look.ReadValue<Vector2>().y;
+            //MouseLook
+            xRot += y * lookSpeed * Time.deltaTime;
+            xRot = Mathf.Clamp(xRot, -90, 90);
+            yRot += x * lookSpeed * Time.deltaTime;
+            zRot = Mathf.Lerp(zRot, -x * 45, 10 * Time.deltaTime);
+            camera.transform.localRotation = Quaternion.Euler(xRot, yRot, 0);
+            transform.rotation = camera.transform.localRotation;
+        }
+
     }
 
     void Move()
     {
-        controller.Move(camera.transform.forward * speed * Time.deltaTime);
-
-        //float x = actions.Move.ReadValue<Vector2>().x;
-        //float z = actions.Move.ReadValue<Vector2>().y;
-
-        //Vector3 moveDirection = (camera.transform.right * x + camera.transform.forward * z).normalized;
-        //controller.Move(moveDirection * speed * Time.deltaTime);
-
+        if(!GetComponent<HealthScript>().IsDead())
+        {
+            controller.Move(camera.transform.forward * speed * Time.deltaTime);
+        }
     }
 
 }

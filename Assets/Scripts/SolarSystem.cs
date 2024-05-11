@@ -5,6 +5,7 @@ using UnityEngine;
 public class SolarSystem : MonoBehaviour
 {
     public static Noise noise;
+    public static List<GameObject> enemies = new List<GameObject>();
     public string seed = "";
 
     [SerializeField] GameObject asteroidPrefab;
@@ -13,8 +14,12 @@ public class SolarSystem : MonoBehaviour
     [SerializeField] int numberOfAsteroids = 10;
     [SerializeField] int maxEnemies = 30;
 
+    [SerializeField] float spawnFrequency = 5;
+    float spawnTimer;
+
     void Awake()
     {
+        spawnTimer = spawnFrequency;
         if(seed == string.Empty) seed = Random.Range(int.MinValue, int.MaxValue).ToString();
         noise = new Noise(seed.GetHashCode());
         Random.InitState(seed.GetHashCode());
@@ -33,9 +38,25 @@ public class SolarSystem : MonoBehaviour
         {
             int enemyIndex = Random.Range(0, enemyTypes.Length);
             Vector3 pos = Random.insideUnitSphere * spawnRadius;
-            Instantiate(enemyTypes[enemyIndex], pos, Quaternion.identity, transform);
+            var e = Instantiate(enemyTypes[enemyIndex], pos, Quaternion.identity, transform);
+            enemies.Add(e);
         }
 
+    }
+
+    void Update()
+    {
+        if(enemies.Count < maxEnemies) 
+        {
+            spawnTimer -= Time.deltaTime;
+            if(spawnTimer < 0)
+            {
+                int enemyIndex = Random.Range(0, enemyTypes.Length);
+                Vector3 pos = Random.insideUnitSphere * spawnRadius;
+                var e = Instantiate(enemyTypes[enemyIndex], pos, Quaternion.identity, transform);
+                enemies.Add(e);
+            }
+        }       
     }
 
 }

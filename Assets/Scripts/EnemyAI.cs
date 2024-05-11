@@ -65,7 +65,7 @@ public class EnemyAI : MonoBehaviour
         {
             var bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
             bullet.GetComponent<BulletScript>().owner = this.gameObject;
-            bullet.GetComponent<BulletScript>().direction = bulletSpawn.forward;
+            bullet.GetComponent<BulletScript>().direction = (target.position - bulletSpawn.position).normalized;
             shootTimer = fireRate;
         }
         else
