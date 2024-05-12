@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void OnDestroy()
@@ -191,7 +191,7 @@ public class PlayerMovement : MonoBehaviour
     public void ResumeGame()
     {
         Time.timeScale = 1;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
         hud.SetActive(true);
         pauseMenu.SetActive(false);
     }
@@ -199,7 +199,7 @@ public class PlayerMovement : MonoBehaviour
     public void PauseGame()
     {
         Time.timeScale = 0;
-        Cursor.lockState = CursorLockMode.None;
+        //Cursor.lockState = CursorLockMode.None;
         hud.SetActive(false);
         pauseMenu.SetActive(true);
     }
