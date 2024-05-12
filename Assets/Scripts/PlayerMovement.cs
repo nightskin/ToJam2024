@@ -95,17 +95,11 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Time.timeScale == 0)
             {
-                Time.timeScale = 1;
-                Cursor.lockState = CursorLockMode.Locked;
-                hud.SetActive(true);
-                pauseMenu.SetActive(false);
+                ResumeGame();
             }
             else
             {
-                Time.timeScale = 0;
-                Cursor.lockState = CursorLockMode.None;
-                hud.SetActive(false);
-                pauseMenu.SetActive(true);
+                PauseGame();
             }
         }
     }
@@ -192,6 +186,22 @@ public class PlayerMovement : MonoBehaviour
     {
         controller.Move(camera.transform.forward * speed * Time.deltaTime);
 
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
+        hud.SetActive(true);
+        pauseMenu.SetActive(false);
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.None;
+        hud.SetActive(false);
+        pauseMenu.SetActive(true);
     }
 
 }

@@ -4970,7 +4970,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 4157967352953975737}
+  m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &372063250
@@ -5588,6 +5588,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelLoader
       objectReference: {fileID: 0}
+    - target: {fileID: 5725386635898014952, guid: 71c9e93a94c484a4599feee82c4a899e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5725386635898014955, guid: 71c9e93a94c484a4599feee82c4a899e, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -6087,6 +6091,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4157967352880458965, guid: b92c6dff04aa8a8458cfed43730955e0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4157967353342723658, guid: b92c6dff04aa8a8458cfed43730955e0, type: 3}
       propertyPath: m_Name
       value: Menus
@@ -6175,13 +6183,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4417238388867618671, guid: b92c6dff04aa8a8458cfed43730955e0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2174569601758225721}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b92c6dff04aa8a8458cfed43730955e0, type: 3}
---- !u!1 &4157967352953975737 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 579362931, guid: b92c6dff04aa8a8458cfed43730955e0, type: 3}
-  m_PrefabInstance: {fileID: 4157967352953975736}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4911522901606026372
 GameObject:
   m_ObjectHideFlags: 0
