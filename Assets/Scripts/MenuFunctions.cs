@@ -7,23 +7,23 @@ public class MenuFunctions : MonoBehaviour
 {
     public void HighScores()
     {
-        SceneManager.LoadScene("Scores");
+        StartCoroutine(LevelLoader.LoadScene("Scores"));
     }
     
     public void MainMenu()
     {
-        SceneManager.LoadScene("Menu");
+        StartCoroutine(LevelLoader.LoadScene("Menu"));
         Time.timeScale = 1;
     }
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("Game");
+        StartCoroutine(LevelLoader.LoadScene("Game"));
     }
 
     public void Retry()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        StartCoroutine( LevelLoader.LoadScene(SceneManager.GetActiveScene().name));
     }
 
     public void QuitGame()

@@ -7,17 +7,16 @@ public class NextSceneTimer : MonoBehaviour
 {
     public float timer = 1.5f;
 
-    void Start()
-    {
-        
-    }
 
     void Update()
     {
-        timer -= Time.deltaTime;
-        if(timer < 0)
+        if(timer > 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            timer -= Time.deltaTime;
+        }
+        else
+        {
+            StartCoroutine(LevelLoader.LoadScene(SceneManager.GetActiveScene().buildIndex + 1));
         }
     }
 }
