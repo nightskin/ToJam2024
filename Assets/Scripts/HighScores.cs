@@ -13,6 +13,10 @@ public class HighScores : MonoBehaviour
 
     void Start()
     {
+        firstPlace = PlayerPrefs.GetInt("first");
+        secondPlace = PlayerPrefs.GetInt("second");
+        thirdPlace = PlayerPrefs.GetInt("third");
+
         if(textBox)
         {
             textBox.text += "1. " + firstPlace.ToString();
@@ -25,8 +29,17 @@ public class HighScores : MonoBehaviour
 
     public static void SetHighScores(int score)
     {
-        if (score > firstPlace) { firstPlace = score; return; }
-        else if (score > secondPlace) { secondPlace =  score; return; }
-        else if (score > thirdPlace) { thirdPlace = score; return; }
+        if (score > firstPlace) 
+        { 
+            PlayerPrefs.SetInt("first", score);
+        }
+        else if (score > secondPlace)
+        { 
+            PlayerPrefs.SetInt("second", score);
+        }
+        else if (score > thirdPlace) 
+        { 
+            PlayerPrefs.SetInt("third", score);
+        }
     }
 }
