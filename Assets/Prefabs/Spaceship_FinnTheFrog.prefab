@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3751786559387878303}
   - component: {fileID: 5145753570441902667}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 592563146998064964}
   - component: {fileID: 592563146998064963}
   - component: {fileID: -6526741477870041171}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Spaceship_FinnTheFrog
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -286,7 +286,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3516742605278192814}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BulletSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}

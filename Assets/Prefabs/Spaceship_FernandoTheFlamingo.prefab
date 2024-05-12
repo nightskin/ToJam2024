@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2637522271783139342}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BulletSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2801726738858146892}
   - component: {fileID: 3255178436093910955}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 7822109344602602583}
   - component: {fileID: 6676821645757207582}
   - component: {fileID: -9222432470454239090}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Spaceship_FernandoTheFlamingo
   m_TagString: Enemy
   m_Icon: {fileID: 0}

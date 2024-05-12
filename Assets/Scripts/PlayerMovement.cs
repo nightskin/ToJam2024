@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform bulletSpawn;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] Camera camera;
-    [SerializeField] RectTransform crossHair;
+    [SerializeField] Image crossHair;
     [SerializeField] CharacterController controller;
     [SerializeField] ParticleSystem speedLines;
 
@@ -31,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] float fireRate = 0.2f;
     float shootTimer = 0;
+    RaycastHit lockOn;
+    [SerializeField] LayerMask lockOnLayer;
 
     void Awake()
     {
@@ -71,7 +73,6 @@ public class PlayerMovement : MonoBehaviour
             controller.enabled = false;
             hud.SetActive(false);
             gameOverMenu.SetActive(true);
-            HighScores.SetHighScores(ScoreScript.GetScore());
         }
         else
         {
@@ -145,26 +146,19 @@ public class PlayerMovement : MonoBehaviour
 
     void Shoot()
     {
-        if (camera.transform.GetComponent<PlayerCamera>().camDistance > 0)
+        if (crossHair.color == Color.red)
         {
-            Ray ray = camera.ScreenPointToRay(crossHair.position);
             var bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
             bullet.GetComponent<BulletScript>().owner = this.gameObject;
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
-                bullet.GetComponent<BulletScript>().direction = (hit.point - bulletSpawn.position).normalized;
-            }
-            else
-            {
-                bullet.GetComponent<BulletScript>().direction = ray.direction;
-            }
+            bullet.GetComponent<BulletScript>().homingTarget = lockOn.transform;
             shootTimer = fireRate;
         }
         else
         {
+            Ray ray = camera.ScreenPointToRay(crossHair.rectTransform.position);
             var bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
             bullet.GetComponent<BulletScript>().owner = this.gameObject;
-            bullet.GetComponent<BulletScript>().direction = bulletSpawn.forward;
+            bullet.GetComponent<BulletScript>().direction = ray.direction;
             shootTimer = fireRate;
         }
 
@@ -181,11 +175,23 @@ public class PlayerMovement : MonoBehaviour
         zRot = Mathf.Lerp(zRot, -x * 45, 10 * Time.deltaTime);
         camera.transform.localRotation = Quaternion.Euler(xRot, yRot, 0);
         transform.rotation = Quaternion.Euler(xRot, yRot, zRot);
+
+        Ray ray = camera.ScreenPointToRay(crossHair.rectTransform.position);
+        if (Physics.SphereCast(ray, 4, out lockOn, camera.farClipPlane ,lockOnLayer))
+        {
+            crossHair.color = Color.red;
+        }
+        else
+        {
+            crossHair.color = Color.white;
+        }
+
     }
 
     void Move()
     {
         controller.Move(camera.transform.forward * speed * Time.deltaTime);
+
     }
 
 }

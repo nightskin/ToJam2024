@@ -25,8 +25,8 @@ public class HighScores : MonoBehaviour
 
     public static void SetHighScores(int score)
     {
-        if(score > firstPlace) firstPlace = score;
-        else if (score > secondPlace) secondPlace = score;
-        else if (score > thirdPlace) thirdPlace = score;
+        if (score > firstPlace) { firstPlace = score; return; }
+        else if (score > secondPlace) { secondPlace =  score; return; }
+        else if (score > thirdPlace) { thirdPlace = score; return; }
     }
 }
